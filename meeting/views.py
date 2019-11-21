@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView,UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -10,7 +10,8 @@ from meeting.forms import HostForm, GuestForm
 
 
 def HomePage(request):
-    return render(request,"meeting/index.html",)
+    return render(request, "meeting/index.html",)
+
 
 class HostCreateView(CreateView):
 
@@ -18,9 +19,9 @@ class HostCreateView(CreateView):
     form_class = HostForm
     success_url = ''
     template_name = "meeting/host.html"
+
     def get_success_url(self):
         return reverse('home-page')
-
 
     def form_valid(self, form):
         super(HostCreateView, self).form_valid(form)
@@ -32,7 +33,7 @@ class HostCreateView(CreateView):
 class GuestCreateView(CreateView):
     model = Guest
     template_name = "meeting/guest.html"
-    
+
     form_class = GuestForm
 
     def get_success_url(self):
@@ -51,11 +52,9 @@ class GuestUpdateView(UpdateView):
     model = Guest
     template_name = "meeting/guest.html"
 
-
-     def form_valid(self, form):
+    def form_valid(self, form):
         super(GuestCreateView, self).form_valid(form)
 
         messages.success(self.request, 'Guest checked out successfully!')
         form.send_mail_to_guest()
         return HttpResponseRedirect(self.get_success_url())
-
