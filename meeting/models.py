@@ -3,6 +3,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Host(models.Model):
 
+    def __str__(self):
+        return self.name
+    
 
     name = models.CharField("Name",max_length=50)
     email = models.EmailField("Email", max_length=254)
@@ -11,6 +14,10 @@ class Host(models.Model):
     
     
 class Guest(models.Model):
+
+    def __str__(self):
+        return self.name
+    
     name = models.CharField("Name",max_length=50)
     email = models.EmailField("Email", max_length=254)
     phone_no = PhoneNumberField("Phone No")

@@ -4,8 +4,8 @@ from django.shortcuts import render
 
 
 urlpatterns = [
-    path("", HomePage, name="home-page"),
+    path(r"", HomePage, name="home-page"),
     path("host-form/", HostCreateView.as_view(), name="host"),
     path("guest-form/", GuestCreateView.as_view(), name="guest"),
-    path("guest-form-checkout/", GuestUpdateView.as_view(), name="guest-update"),
+    path("guest/<int:pk>/checkout/", GuestUpdateView.as_view(), name="guest-checkout"),
 ]
