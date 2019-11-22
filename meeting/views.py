@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -72,6 +72,21 @@ class GuestUpdateView(UpdateView):
     form_class = GuestFormCheckout
     success_url = reverse_lazy("home-page")
     template_name = 'meeting/guest_checkout.html'
+    
+    
+
+    def get(self,request, *args, **kwargs):
+        '''
+        Used to redirect to homepage if check out time is already filled.
+        '''
+        if self.model.objects.get(pk=kwargs["pk"]).check_out_time is not None:
+        
+            messages.success(self.request,"Guest already checked out!")
+            return redirect(reverse_lazy("home-page"))
+
+        else:
+            return super(GuestUpdateView,self).get(request, *args, **kwargs)
+
 
     def form_valid(self, form):
         # setting the checkout time to current time
@@ -81,4 +96,4 @@ class GuestUpdateView(UpdateView):
         messages.success(self.request, 'Guest checked out successfully!')
         form.send_mail_to_guest()
 
-        return HttpResponseRedirect(self.get_success_url())
+        return redirect(reverse_lazy("home-page"))
