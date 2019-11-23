@@ -26,5 +26,3 @@ class Guest(models.Model):
     address_visited = models.TextField(("Address/Room Visited"))
     host_name = models.ForeignKey(Host, verbose_name=("Host Name"), on_delete=models.PROTECT)
 
-
-   
