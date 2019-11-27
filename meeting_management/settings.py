@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'phonenumber_field',
     'meeting',
+    'django_twilio',
     'crispy_forms',
     'django.contrib.staticfiles',
 ]
@@ -132,6 +133,13 @@ USE_TZ = True
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
+# Twilio Settings
+
+TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
+
+DJANGO_TWILIO_FORGERY_PROTECTION = False # Make True when in production
+TWILIO_NUMBER = os.environ.get("TWILIO_NUMBER")
 
 # Email Setup (GMAIL)
  
