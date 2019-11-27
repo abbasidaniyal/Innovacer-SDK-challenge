@@ -5,6 +5,8 @@ class Host(models.Model):
 
     def __str__(self):
         return self.name
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Host._meta.fields]
     
 
     name = models.CharField("Name",max_length=50)
@@ -17,6 +19,7 @@ class Guest(models.Model):
 
     def __str__(self):
         return self.name
+    
     
     name = models.CharField("Name",max_length=50)
     email = models.EmailField("Email", max_length=254)

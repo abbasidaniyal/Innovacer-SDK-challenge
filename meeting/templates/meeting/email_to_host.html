@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+    <p class="container" >
+    <h1>Hello from Innovacer!!</h1>
+        {% for k,v  in obj.items   %}
+        {% if v %}
+        {{ k }} : {{ v }}
+        {% endif %}
+        {% endfor %}
+        When you check out, please go to    http://localhost:8000{% url 'guest-checkout' id  %}</a>.
+    </p>
+
+    <p class="container">
+        Regards,
+        Team Innovacer
+
+    </p>
+
+</body>
+
+</html>
