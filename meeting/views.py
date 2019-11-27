@@ -29,8 +29,7 @@ class HostCreateView(CreateView):
 
     def form_valid(self, form):
         super(HostCreateView, self).form_valid(form)
-        form.send_mail_to_Host("create")
-
+       
         messages.success(self.request, 'Host Added successfully!')
         return HttpResponseRedirect(self.get_success_url())
 
@@ -49,8 +48,6 @@ class HostUpdateView(UpdateView):
 
         super(HostUpdateView, self).form_valid(form)
         messages.success(self.request, 'Host Edited successfully!')
-        form.send_mail_to_Host("edit")
-
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -65,8 +62,8 @@ class GuestCreateView(CreateView):
     def form_valid(self, form):
         super(GuestCreateView, self).form_valid(form)
         messages.success(self.request, 'Guest Added successfully!')
+        
         #send sms
-        form.send_sms_to_host()
         
         #send mail to Host
         subject = 'You have a new guest!!!!'
@@ -112,16 +109,16 @@ class GuestUpdateView(UpdateView):
         messages.success(self.request, 'Guest checked out successfully!')
 
         #send mail to guest
-        subject = 'You have a new guest!!!!'
-        html_message = render_to_string('meeting/email_to_host.html', {"action": "created","obj": {"Name":self.object.name,"Email":self.object.email,"Phone No":self.object.phone_no,"Check In Time": self.object.check_in_time,"Address": self.object.address_visited},"id":self.object.id })
+        subject = 'Thank you for your visit!!!!!!'
+        my_host = Host.objects.get(pk=self.object.host_name.id)
+        html_message = render_to_string('meeting/email_to_guest.html', {"action": "checkout","obj": {"Name":my_host.name,"Email":my_host.email,"Phone No":my_host.phone_no,"Check In Time": self.object.check_in_time,"Check Out Time": self.object.check_out_time,"Address Visited": self.object.address_visited},})
+
         message = strip_tags(html_message)
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = self.object.host_name.email
+        recipient_list = self.object.email
         send_mail(subject,message,email_from,[recipient_list])
 
 
 
-
-        form.send_mail_to_guest(self.object)
 
         return redirect(reverse_lazy("home-page"))

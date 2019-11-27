@@ -24,8 +24,7 @@ class Guest(models.Model):
     name = models.CharField("Name",max_length=50)
     email = models.EmailField("Email", max_length=254)
     phone_no = PhoneNumberField("Phone No")
-    check_in_time = models.TimeField(("Check in time"), auto_now_add=True, )
-    check_out_time = models.TimeField(("Check out time"), auto_now=False,null=True)
+    check_in_time = models.DateTimeField(("Check in time"), auto_now_add=True, )
+    check_out_time = models.DateTimeField(("Check out time"), auto_now=False,null=True)
     address_visited = models.TextField(("Address/Room Visited"))
     host_name = models.ForeignKey(Host, verbose_name=("Host Name"), on_delete=models.PROTECT)
-

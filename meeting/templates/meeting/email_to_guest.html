@@ -5,13 +5,13 @@
 <body>
     <p class="container" >
     <h1>Hello from Innovacer!!</h1>
-        You have a new guest. Their details are below :
+        Thank you for your visit!!
+        Your host details are as follows :
         {% for k,v  in obj.items   %}
         {% if v %}
         {{ k }} : {{ v }}
         {% endif %}
         {% endfor %}
-        When they check out, please click localhost:8000{% url 'guest-checkout' id  %}.
     </p>
 
     <p class="container">

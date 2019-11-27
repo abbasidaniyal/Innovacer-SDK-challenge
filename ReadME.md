@@ -18,3 +18,5 @@ USER_PASSWORD= xxxxxxxxxxx
 
 ### Make Migrations
 Two database configuration are present in the setting.py. Sqlite for development and postgres for production.
+
+### To Do
