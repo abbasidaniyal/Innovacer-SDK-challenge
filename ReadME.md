@@ -33,5 +33,15 @@ TWILIO_NUMBER=+xxyyyyyyyyyy
 ### Make Migrations
 Two database configuration are present in the setting.py. Sqlite for development and postgres for production.
 
+### Make a super user
+Run :
+```
+python manage.py createsuperuser
+```
+
+This super user can access the admin side ('/admin').
+This super user can also sign in and the create hosts.
+
+
 ### To Do
 1. Add Design (Bootstrap the templates)
