@@ -1,7 +1,10 @@
 from django.forms import ModelForm
 from meeting.models import Guest, Host
+from django.contrib.auth.forms import UserCreationForm
 
 
+class SignUpForm(UserCreationForm):
+    pass
 
 
 class GuestFormCheckout(ModelForm): 

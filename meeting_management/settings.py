@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'phonenumber_field',
     'meeting',
-    'django_twilio',
     'crispy_forms',
     'django.contrib.staticfiles',
 ]
@@ -155,3 +154,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('USER_PASS')
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'home-page'
+
+

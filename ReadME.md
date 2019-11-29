@@ -35,4 +35,3 @@ Two database configuration are present in the setting.py. Sqlite for development
 
 ### To Do
 1. Add Design (Bootstrap the templates)
-2. Add authentication to create Hosts

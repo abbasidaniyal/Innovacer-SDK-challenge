@@ -7,12 +7,21 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
 
 from twilio.rest import Client
 
 from meeting_management import settings
 from meeting.models import Host, Guest
-from meeting.forms import HostForm, GuestForm, GuestFormCheckout
+from meeting.forms import *
+
+
+
+
+
+# class SignUp (View):
+#     form = SignUpForm
 
 
 def send_sms(message, to):
@@ -30,16 +39,18 @@ def send_sms(message, to):
     
 
 def HomePage(request):
-    return render(request, "meeting/index.html",)
+    return render(request, "meeting/index.html",{'login': request.user.is_authenticated})
 
 
-class HostCreateView(CreateView):
+class HostCreateView(LoginRequiredMixin,CreateView):
 
     '''
     HostCreateView is used to create a new host. Since this requires security, only super admins can use this functionality.
     '''
     model = Host
     form_class = HostForm
+    login_url = '/login/'
+    redirect_field_name = 'index'
     success_url = reverse_lazy("home-page")
 
     def form_valid(self, form):
@@ -49,11 +60,13 @@ class HostCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class HostUpdateView(UpdateView):
+class HostUpdateView(LoginRequiredMixin,UpdateView):
     '''
     HostUpdateView is used to update the Host. It also sends an email to the Host about his details. 
     '''
     model = Host
+    login_url = '/login/'
+    redirect_field_name = 'index'
     form_class = HostForm
     success_url = reverse_lazy("home-page")
     # template_name = 'meeting/host_.html'
